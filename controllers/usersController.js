@@ -3,7 +3,7 @@ const models = require('../models')
 const usersController = {}
 
 //signup
-userController.create = async (req, res) => {
+usersController.create = async (req, res) => {
   try {
       const user = await models.user.create({
           name: req.body.name,
@@ -18,7 +18,7 @@ userController.create = async (req, res) => {
 }
 
 //login
-userController.login = async(req, res) => {
+usersController.login = async(req, res) => {
   try {
     const user = await models.user.findOne({
       where: { email: req.body.email }
@@ -35,7 +35,7 @@ userController.login = async(req, res) => {
   }
 }
 
-userController.getAll = async (req, res) => {
+usersController.getAll = async (req, res) => {
   try {
       const users = await models.user.findAll()
       res.json({ users })
