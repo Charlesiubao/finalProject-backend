@@ -9,6 +9,9 @@ const routesReport = require('rowdy-logger').begin(app)
 app.use(express.json())
 app.use(require('cors')())
 
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 const usersRoutes = require('./routes/usersRoutes')
 app.use('/user', usersRoutes)
 
