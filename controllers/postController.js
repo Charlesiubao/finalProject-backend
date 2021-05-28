@@ -18,7 +18,7 @@ postController.create = async (req,res) => {
     // console.log(req.body.data)
     // console.log(req.body)
     // console.log(req.headers)
-        const uploadResponse = await cloudinary.uploader.upload(fileStr, {width: 1280, height: 720, crop: "limit"});
+        const uploadResponse = await cloudinary.uploader.upload(fileStr, {width: 1280, height: 720, crop: "limit", upload_preset: "memes"});
 
         let post = await models.post.create({
           title: req.body.title,
@@ -39,6 +39,20 @@ postController.create = async (req,res) => {
       
   } catch (error) {
       res.json({error})
+  }
+}
+
+postController.show = async (req,res) => {
+  try {
+    const { resources } = await cloudinary.search
+        .expression('folder:all')
+        .sort_by('public_id', 'desc')
+        .max_results(30)
+        .execute();
+    const publicIds = resources.map((file) => file.public_id);
+    res.json({publicIds});
+  } catch (error) {
+    
   }
 }
 
